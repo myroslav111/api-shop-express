@@ -6,10 +6,18 @@ const logger = require('morgan');
 const cors = require('cors');
 /** library to work with env. files */
 require('dotenv').config();
-
+// !delete
+const router = express.Router();
 /** init express */
 const app = express();
 
+router.get('/', async (req, res) => {
+  try {
+    res.json({ status: 200, message: 'complete' });
+  } catch (error) {
+    return res.status(500).send('server error');
+  }
+});
 /** starting brake point for work with contacts */
 // ?const contactsRouter = require('./routes/api/contacts');
 
@@ -49,4 +57,5 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message });
 });
 
-module.exports = app;
+// module.exports = app;
+module.exports = router;
