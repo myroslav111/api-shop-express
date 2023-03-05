@@ -33,7 +33,7 @@ app.use(express.json());
 // ?app.use('/api/users', authRouter);
 
 const getAllContacts = async (req, res) => {
-  res.status(200).json({ message: 'we got it' });
+  res.status(200).json({ message: 'we got it >' });
 };
 
 app.use('/api/products', getAllContacts);
