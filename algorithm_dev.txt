@@ -1,4 +1,28 @@
-/** for work with server */
+1.create server.js
+/** import app there are our logic */
+const app = require('./app');
+
+/** for work with db */
+const mongoose = require('mongoose');
+
+const { DB_HOST_CAFE, PORT = 3000 } = process.env;
+
+/** when db exist next step to run server */
+mongoose
+  .connect(DB_HOST_CAFE)
+  .then(() => {
+    console.log(`Server running. Use our API on port:${PORT}`);
+    app.listen(PORT, '0.0.0.0');
+  })
+  .catch(error => {
+    console.log(error.message);
+    process.exit(1);
+  });
+
+
+<---------------------------------------------------------->
+2.create app.js
+  /** for work with server */
 const express = require('express');
 /** log event  */
 const logger = require('morgan');
@@ -6,16 +30,14 @@ const logger = require('morgan');
 const cors = require('cors');
 /** library to work with env. files */
 require('dotenv').config();
-// !delete
-// const router = express.Router();
+
 /** init express */
 const app = express();
 
-/** starting brake point for work with contacts */
+/** starting brake point for work with products */
 const productsRouter = require('./routes/api/products');
 
 /** starting brake point for work with users */
-// ?const authRouter = require('./routes/api/auth');
 
 /** виводить в консоль статус операції (200 і можливо ще якась інфо) */
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
@@ -31,13 +53,6 @@ app.use(express.json());
 // app.use(express.static('public'));
 /** here are send our routes */
 app.use('/api/products', productsRouter);
-// app.use('/api/users', authRouter);
-
-// const getAllContacts = async (req, res) => {
-//   res.status(200).json({ message: 'we got it >' });
-// };
-
-// app.use('/api/products', getAllContacts);
 
 /** if front-end require for what is not */
 app.use((req, res) => {
@@ -51,4 +66,29 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
-// module.exports = router;
+
+
+3.create dir routes/api/products
+const express = require('express');
+
+const router = express.Router();
+
+const ctrl = require('../../controllers/products');
+
+router.get('/', ctrl.getAllProducts);
+
+module.exports = router;
+
+
+
+4.create dir controllers
+const getAllProducts = async (req, res) => {
+  res.status(200).json('getAllProducts started');
+};
+
+module.exports = getAllProducts
+
+5.create models product
+
+6. create helpers 
+
