@@ -88,7 +88,11 @@ const getAllProducts = async (req, res) => {
 
 module.exports = getAllProducts
 
-5.create models product
-
-6. create helpers 
+5.create products model
+6. create helpers handleSabeErrors
+7. create reviews models and models schemas
+8. create middlewares validateBody
+9. create helpers RequestError
+10. Joi validation
+11. create ctrl add and getAll for products and reviews
 

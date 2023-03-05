@@ -4,6 +4,14 @@ const router = express.Router();
 
 const ctrl = require('../../controllers/products');
 
-router.get('/', ctrl.getAllProducts);
+const { validateBody } = require('../../middlewares');
+
+const { ctrlWrapper } = require('../../helpers');
+
+const { schemas } = require('../../models/product');
+
+router.get('/', ctrlWrapper(ctrl.getAllProducts));
+
+router.post('/', validateBody(schemas.addProductSchema), ctrlWrapper(ctrl.addProduct));
 
 module.exports = router;

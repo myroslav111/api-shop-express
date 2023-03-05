@@ -13,6 +13,8 @@ const app = express();
 
 /** starting brake point for work with contacts */
 const productsRouter = require('./routes/api/products');
+const reviewsRouter = require('./routes/api/reviews');
+
 
 /** starting brake point for work with users */
 // ?const authRouter = require('./routes/api/auth');
@@ -31,7 +33,7 @@ app.use(express.json());
 // app.use(express.static('public'));
 /** here are send our routes */
 app.use('/api/products', productsRouter);
-// app.use('/api/users', authRouter);
+app.use('/api/reviews', reviewsRouter);
 
 // const getAllContacts = async (req, res) => {
 //   res.status(200).json({ message: 'we got it >' });
