@@ -40,11 +40,11 @@ app.use(express.json());
 // ?app.use('/api/contacts', contactsRouter);
 // ?app.use('/api/users', authRouter);
 
-const getAllContacts = async (req, res) => {
-  res.status(200).json({ message: 'we got it >' });
-};
+// const getAllContacts = async (req, res) => {
+//   res.status(200).json({ message: 'we got it >' });
+// };
 
-app.use('/api/products', getAllContacts);
+// app.use('/api/products', getAllContacts);
 
 /** if front-end require for what is not */
 app.use((req, res) => {
