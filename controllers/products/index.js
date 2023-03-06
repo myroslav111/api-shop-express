@@ -1,8 +1,8 @@
-const getAllProducts = require('./getAllProducts');
+const getAllProductsBySelect = require('./getAllProductsBySelect');
 const addProduct = require('./addProduct');
 
 
 module.exports = {
-    getAllProducts,
     addProduct,
+    getAllProductsBySelect
 }
