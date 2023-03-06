@@ -1,7 +1,1 @@
-update getAllProducts - by select 
-
-create for products route, ctrl -  @Get('/slug/:slug')
-
-create for products route, ctrl - @Get('/relatives/:id')
-
-create and modify for products route, ctrl - @Get(':id')
+2. add static files
