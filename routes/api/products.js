@@ -12,10 +12,10 @@ const { schemas } = require('../../models/product');
 
 router.get('/', ctrlWrapper(ctrl.getAllProductsBySelect));
 
-router.post(
-  '/',
-  validateBody(schemas.addProductSchema),
-  ctrlWrapper(ctrl.addProduct)
-);
+router.get('/slug/:slug', ctrlWrapper(ctrl.getProductBySlug));
+
+router.get('/relatives/:id', ctrlWrapper(ctrl.getRelativesProducts));
+
+router.post('/', validateBody(schemas.addProductSchema), ctrlWrapper(ctrl.addProduct));
 
 module.exports = router;
