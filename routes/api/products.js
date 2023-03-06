@@ -10,8 +10,12 @@ const { ctrlWrapper } = require('../../helpers');
 
 const { schemas } = require('../../models/product');
 
-router.get('/', ctrlWrapper(ctrl.getAllProducts));
+router.get('/', ctrlWrapper(ctrl.getAllProductsBySelect));
 
-router.post('/', validateBody(schemas.addProductSchema), ctrlWrapper(ctrl.addProduct));
+router.post(
+  '/',
+  validateBody(schemas.addProductSchema),
+  ctrlWrapper(ctrl.addProduct)
+);
 
 module.exports = router;
