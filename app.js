@@ -14,7 +14,7 @@ const app = express();
 /** starting brake point for work with contacts */
 const productsRouter = require('./routes/api/products');
 const reviewsRouter = require('./routes/api/reviews');
-
+const uploadRouter = require('./routes/api/uploadFile');
 
 /** starting brake point for work with users */
 // ?const authRouter = require('./routes/api/auth');
@@ -34,6 +34,7 @@ app.use(express.json());
 /** here are send our routes */
 app.use('/api/products', productsRouter);
 app.use('/api/reviews', reviewsRouter);
+app.use('/api/upload', uploadRouter);
 
 // const getAllContacts = async (req, res) => {
 //   res.status(200).json({ message: 'we got it >' });
