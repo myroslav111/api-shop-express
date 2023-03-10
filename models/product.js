@@ -4,22 +4,24 @@ const Joi = require('joi');
 
 const { handleSaveErrors } = require('../helpers');
 
-const productSchema = new Schema({
-  name: { type: String, unique: true },
-  description: { type: String, required: true },
-  price: { type: Number },
-  reviews: { type: [{ type: Schema.Types.ObjectId, ref: 'review' }] },
-  images: [String],
-  slug: { type: String, unique: true },
-  productId: { type: Number, unique: true },
-},
+const productSchema = new Schema(
+  {
+    name: { type: String, unique: true },
+    description: { type: String, required: true },
+    price: { type: Number },
+    reviews: { type: [{ type: Schema.Types.ObjectId, ref: 'review' }] },
+    images: [String],
+    // images: { url: { type: string }, public_id: result.public_id },
+    slug: { type: String, unique: true },
+    productId: { type: Number, unique: true },
+  },
   { versionKey: false, timestamps: true }
 );
 
 // срабатывает в случае ошибки при операции POST(при попытке добавить ещё один элемент с уже существующим таким уникальным полем)
 productSchema.post('save', handleSaveErrors);
 
-// создает схему для валидации body при запросе 
+// создает схему для валидации body при запросе
 const addProductSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
@@ -32,7 +34,6 @@ const addProductSchema = Joi.object({
 // создает схему для валидации поля favorite при update с помощью Joi
 const updatePriceSchema = Joi.object({
   price: Joi.number().required(),
-
 });
 
 const Product = model('product', productSchema);
@@ -41,9 +42,9 @@ const Product = model('product', productSchema);
 const schemas = {
   addProductSchema,
   updatePriceSchema,
-}
+};
 
 module.exports = {
   Product,
-  schemas
+  schemas,
 };
