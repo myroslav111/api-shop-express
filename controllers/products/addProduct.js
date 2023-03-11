@@ -8,6 +8,7 @@ const addProduct = async (req, res) => {
 
   const arrValues = [];
 
+  // create image url on cloudinary
   Object.values(urls).forEach(dataImageClient => {
 
     const result = uploadImageCloudinaryFun.uploader.upload(dataImageClient, {
@@ -17,22 +18,18 @@ const addProduct = async (req, res) => {
   }
   );
 
-  const arrDataClientImage = await Promise.all(arrValues)
+  const arrDataClientImage = await Promise.all(arrValues);
 
-  arrDataClientImage.forEach(el => cloudImages.push(el.secure_url))
+  arrDataClientImage.forEach(el => cloudImages.push(el.secure_url));
 
-  const urlsArr = arrDataClientImage.map(el => el.secure_url)
+  const urlsArr = arrDataClientImage.map(el => el.secure_url);
 
   const modernSlug = name.trim().toLowerCase().replace(/\W+/g, '-');
 
-  // foo.find().sort({ _id: 1 }).limit(50);
+  const singleLastProduct = await Product.findOne().sort({ createdAt: -1 });
 
-  // const singleLastProduct = await Product.findOne({ $query: {}, $orderby: { 'createdAt': 1 } });
-  const singleLastProduct = await Product.findOne().sort({ createdAt: 1 });
-
-  console.log("singleLastProduct", singleLastProduct);
-
-
+  // assign productId for current product 
+  const currentProductId = singleLastProduct.productId + 1;
 
   const product = await Product.create({
     name,
@@ -40,7 +37,7 @@ const addProduct = async (req, res) => {
     price,
     images: urlsArr,
     slug: modernSlug,
-    productId: 373733335,
+    productId: currentProductId,
     reviews: [],
   });
 
