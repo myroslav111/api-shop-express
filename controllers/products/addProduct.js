@@ -4,40 +4,46 @@ const uploadImageCloudinaryFun = require('../../utils/uploadImageCloudinaryFun')
 const addProduct = async (req, res) => {
   const { name, description, price, urls } = req.body;
 
-  const result = await uploadImageCloudinaryFun.uploader.upload(urls[0], {
-    folder: 'products',
-  });
-  const resultt = await uploadImageCloudinaryFun.uploader.upload(urls[1], {
-    folder: 'products',
-  });
+  const cloudImages = [];
 
-  const linkImg = [result.secure_url, resultt.secure_url];
-  // const arrCloud = [];
-  //   for (let index = 0; index < urls.length; index++) {
-  //     const url = urls[index];
-  //     const result = await uploadImageCloudinaryFun.uploader.upload(url, {
-  //       folders: 'products',
-  //     });
+  const arrValues = [];
 
-  //     arrCloud.push(result);
-  //   }
-  //   urls.map(async url => {
-  //     const result = await uploadImageCloudinaryFun.uploader.upload(url);
-  //     console.log('result', result);
-  //     return result;
-  //   });
-  //   console.log('arrCloud', arrCloud);
-  //   const result = await uploadImageCloudinaryFun.uploader.upload()
+  Object.values(urls).forEach(dataImageClient => {
+
+    const result = uploadImageCloudinaryFun.uploader.upload(dataImageClient, {
+      folders: 'products',
+    });
+    arrValues.push(result);
+  }
+  );
+
+  const arrDataClientImage = await Promise.all(arrValues)
+
+  arrDataClientImage.forEach(el => cloudImages.push(el.secure_url))
+
+  const urlsArr = arrDataClientImage.map(el => el.secure_url)
+
+  const modernSlug = name.trim().toLowerCase().replace(/\W+/g, '-');
+
+  // foo.find().sort({ _id: 1 }).limit(50);
+
+  // const singleLastProduct = await Product.findOne({ $query: {}, $orderby: { 'createdAt': 1 } });
+  const singleLastProduct = await Product.findOne().sort({ createdAt: 1 });
+
+  console.log("singleLastProduct", singleLastProduct);
+
+
+
   const product = await Product.create({
     name,
     description,
     price,
-    images: linkImg,
-    slug: 'jhlkheedd',
-    productId: 373733333,
+    images: urlsArr,
+    slug: modernSlug,
+    productId: 373733335,
     reviews: [],
   });
-  //   const product = await Product.create({ ...req.body });
+
   res.status(201).json(product);
 };
 
