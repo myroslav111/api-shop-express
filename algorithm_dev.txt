@@ -14,5 +14,5 @@
 9. create helpers RequestError
 10. Joi validation
 11. create ctrl add and getAll for products and reviews
-12 create cloudinary path and implementation process
+12 create cloudinary path and implementation process in addProduct controller
 
