@@ -14,6 +14,7 @@ const productSchema = new Schema(
     // images: { url: { type: string }, public_id: result.public_id },
     slug: { type: String, unique: true },
     productId: { type: Number, unique: true },
+    typeProduct: { type: String },
   },
   { versionKey: false, timestamps: true }
 );
