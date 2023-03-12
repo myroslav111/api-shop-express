@@ -30,6 +30,7 @@ const addProductSchema = Joi.object({
   reviews: Joi.array(),
   images: Joi.array(),
   slug: Joi.string().required(),
+  typeProduct: Joi.string().required(),
 });
 
 // создает схему для валидации поля favorite при update с помощью Joi
